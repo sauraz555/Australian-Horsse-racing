@@ -58,6 +58,11 @@ around them; flag reduced confidence per rule #6). Never invent data.
   (they reshape the speed map), track bias observed on the day.
 - **Market movement.** Late steamers (last 10–30 min) confirm; overnight moves are
   weak. Note direction, but build your tissue from the techniques FIRST.
+- **Odds — the rule (efficiency first):** if the user gave odds, use them. If not,
+  research current **decimal** odds from a bookmaker/exchange with your web tools
+  and fill each runner's `odds`. If odds genuinely can't be found, **proceed
+  without odds** — the scorer still ranks and builds exotics, it just prints
+  "NO ODDS" and omits value / EV / staking. Never invent a price.
 
 Then feed all of this into the **factor sub-scores** in Step 3 — the tissue is
 built from the handicapping, and only compared to the market afterwards (rule #8).
