@@ -12,7 +12,7 @@ import csv
 import os
 import re
 
-from .models import RaceCard, Runner, racecard_to_dict, to_int, to_float
+from .models import RaceCard, Runner, racecard_to_dict, to_int, to_float, FACTORS
 
 # Fields the agent should research if missing before scoring.
 CRITICAL_RACE = ["condition", "rail", "field_size", "distance", "race_class"]
@@ -211,8 +211,11 @@ def _attach_gaps(rc: RaceCard) -> None:
     race_gaps = [f for f in CRITICAL_RACE if not getattr(rc, f, None)]
     runner_gaps = {}
     for r in rc.runners:
-        missing = [f for f in CRITICAL_RUNNER if not getattr(r, f, None)]
+        # scaffold the 10 factor keys so the agent fills numbers, not key names
         if not r.factor_scores:
+            r.factor_scores = {f: None for f in FACTORS}
+        missing = [f for f in CRITICAL_RUNNER if not getattr(r, f, None)]
+        if all(v is None for v in r.factor_scores.values()):
             missing.append("factor_scores")
         if not r.running_style:
             missing.append("running_style")

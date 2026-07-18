@@ -151,10 +151,14 @@ def cmd_score(args) -> None:
     if not runners:
         sys.exit("ERROR: no runners in the file. Ingest/fill runners first.")
 
-    missing = [r.get("name") or f"#{r.get('number')}" for r in runners if not r.get("factor_scores")]
+    def _needs_scores(r):
+        fs = r.get("factor_scores") or {}
+        return not any(v is not None for v in fs.values())
+
+    missing = [r.get("name") or f"#{r.get('number')}" for r in runners if _needs_scores(r)]
     if missing:
-        sys.exit("ERROR: these runners have no factor_scores (do Step 3 'Judge' first): "
-                 + ", ".join(missing))
+        sys.exit("ERROR: these runners have no factor_scores yet (do Step 3 'Judge' — set "
+                 "each of the 10 factors 0-100): " + ", ".join(missing))
 
     conditions = _conditions_from_race(rc)
     weights, notes, modifiers = adjust_weights(conditions)
@@ -189,6 +193,41 @@ def cmd_score(args) -> None:
     _write_json(dest, out)
     _print_summary(out)
     print(f"\nWrote {dest}")
+
+
+_GUIDE = """\
+HorseEdgeEngine — how to drive this as an agent (full detail in AGENT.md)
+
+You are an elite Australian racing analyst. Python does the betting math; you do
+the research, judgment and the written report. Odds never feed the rating — they
+are only compared to it at the end.
+
+  1. INGEST   python -m horse_edge.cli ingest <file> -o race.json
+              (accepts pasted text / PDF / Excel / CSV; writes a scaffold + a
+              `data_gaps` list of what to research.)
+
+  2. RESEARCH Fill the decision-critical gaps with your OWN web tools — jockey
+              form on the day, gear/blinkers history, class/grade, track
+              condition, rail, scratchings, odds, sectionals. Note sources; leave
+              the unfindable null. See skills.md.
+
+  3. JUDGE    Edit race.json: set each runner's `factor_scores` (10 factors, each
+              0-100) and `running_style` (LEADER/ON-PACE/MIDFIELD/BACKMARKER).
+
+  4. SCORE    python -m horse_edge.cli score race.json -o scored.json
+              (weights, pace/PPI, sectionals, grade, tissue, de-vig, EV,
+              Quarter-Kelly, place probs + exotics — all deterministic.)
+
+  5. REPORT   Write the final markdown in the EXACT format in SYSTEM_PROMPT.md,
+              using the numbers in scored.json verbatim.
+
+Try it now:  python -m horse_edge.cli demo
+Read next:   AGENT.md  (contract)  ·  skills.md  (sub-scoring)  ·  SYSTEM_PROMPT.md
+"""
+
+
+def cmd_guide(args) -> None:
+    print(_GUIDE)
 
 
 def cmd_demo(args) -> None:
@@ -287,9 +326,14 @@ def _default_out(inp: str, suffix: str, strip: str = "") -> str:
 # ---------------------------------------------------------------------------
 
 def build_parser() -> argparse.ArgumentParser:
-    p = argparse.ArgumentParser(prog="horse_edge", description=__doc__,
-                                formatter_class=argparse.RawDescriptionHelpFormatter)
+    p = argparse.ArgumentParser(
+        prog="horse_edge", description=__doc__,
+        epilog="First time driving this? Run:  python -m horse_edge.cli guide",
+        formatter_class=argparse.RawDescriptionHelpFormatter)
     sub = p.add_subparsers(dest="command", required=True)
+
+    pg = sub.add_parser("guide", help="print the 5-step agent workflow")
+    pg.set_defaults(func=cmd_guide)
 
     pi = sub.add_parser("ingest", help="parse text/pdf/excel/csv -> race.json scaffold")
     pi.add_argument("input")
