@@ -38,8 +38,14 @@ python -m horse_edge.cli demo         # scores the bundled sample end-to-end
    Deterministic weights, pace map, sectionals, tissue, de-vig, EV, Quarter-Kelly.
 5. **Report** — the agent writes the final markdown in the required output format.
 
-Full contract: **[AGENT.md](AGENT.md)**. Heuristics: **[skills.md](skills.md)**.
+Full contract: **[AGENTS.md](AGENTS.md)**. Heuristics: **[skills.md](skills.md)**.
 Methodology + output format (verbatim): **[SYSTEM_PROMPT.md](SYSTEM_PROMPT.md)**.
+
+**Works with any agent CLI.** `AGENTS.md` is the cross-tool standard (Google
+Antigravity, Cursor, Windsurf, Codex, …); `GEMINI.md` covers Gemini CLI and
+Antigravity; `CLAUDE.md` covers Claude Code. All three point at `AGENTS.md`, so
+opening your agent inside this folder is enough — it auto-loads the contract. Any
+agent can also just run `python -m horse_edge.cli guide`.
 
 ## CLI
 
@@ -61,7 +67,7 @@ horse_edge/
   models.py      ingest.py     weights.py    pace.py
   sectional.py   scoring.py    market.py     cli.py
   data/          track_bias.json  sire_wet.json  sectional_benchmarks.json
-AGENT.md  skills.md  SYSTEM_PROMPT.md  CLAUDE.md  GEMINI.md
+AGENTS.md  skills.md  SYSTEM_PROMPT.md  CLAUDE.md  GEMINI.md
 sample_race.txt  sample_race.json  sample_scored.json  smoke_test.py
 ```
 

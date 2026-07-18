@@ -196,7 +196,7 @@ def cmd_score(args) -> None:
 
 
 _GUIDE = """\
-HorseEdgeEngine — how to drive this as an agent (full detail in AGENT.md)
+HorseEdgeEngine — how to drive this as an agent (full detail in AGENTS.md)
 
 You are an elite Australian racing analyst. Python does the betting math; you do
 the research, judgment and the written report. Odds never feed the rating — they
@@ -222,7 +222,7 @@ are only compared to it at the end.
               using the numbers in scored.json verbatim.
 
 Try it now:  python -m horse_edge.cli demo
-Read next:   AGENT.md  (contract)  ·  skills.md  (sub-scoring)  ·  SYSTEM_PROMPT.md
+Read next:   AGENTS.md  (contract)  ·  skills.md  (sub-scoring)  ·  SYSTEM_PROMPT.md
 """
 
 
