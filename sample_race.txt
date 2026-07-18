@@ -1,0 +1,21 @@
+RACE DETAILS:
+Track: Randwick | Date: 2026-07-18 | Race: 6 | Distance: 1400
+Class: BM88 | Condition: Good 4 | Rail: True
+Prize: $160,000 | Field Size: 9
+Weather: Fine | Bias Notes: none observed early
+
+RUNNERS:
+# Horse | Barrier | Weight | Jockey | Trainer | Last 5 | Dist Rec | Wet Form | Odds | Gear | Notes
+1 Vela Command | 3 | 59.0 | J McDonald | C Waller | 12x31 | 4:2-1-0 | 2:0-1-0 | $3.40 | TT | 2nd up, strong last 600m
+2 Coastal Raider | 1 | 58.5 | T Berry | J Cummings | 34x12 | 6:1-2-1 | 3:1-0-1 | $6.00 | B3 | leads, tight tempo suits
+3 Northern Myth | 8 | 57.0 | R King | G Waterhouse | 5x461 | 3:0-1-0 | 1:0-0-0 | $9.50 | | wide draw, closer
+4 Ember Lane | 5 | 56.5 | K McEvoy | A Freedman | 21x23 | 5:1-2-0 | 4:1-1-1 | $7.50 | XN | on-pace, consistent
+5 Grand Ledger | 2 | 56.0 | N Rawiller | C Maher | 113x2 | 7:3-1-1 | 2:1-0-0 | $4.80 | | on-speed, in-form
+6 Silver Reprise | 9 | 55.5 | J Parr | M Newnham | x6574 | 4:0-0-1 | 0:0-0-0 | $21.00 | B1 | blinkers first time, backmarker
+7 Tempest Bay | 6 | 55.0 | T Clark | K Lees | 43x15 | 5:1-1-1 | 3:0-1-1 | $11.00 | | midfield, honest
+8 Quiet Persuasion | 4 | 54.5 | B Shinn | J Thompson | 2x681 | 4:1-0-0 | 1:0-0-0 | $13.00 | W | first-up, trial winner
+9 Lucky Cordon | 7 | 54.0 | H Bowman | P Perry | 6x233 | 6:0-2-2 | 2:0-1-0 | $15.00 | | midfield closer
+
+ADDITIONAL INFO:
+Pace map: leaders = #2, #5; on-pace = #1, #4; midfield = #7, #9; back = #3, #6, #8
+No late scratchings. #6 blinkers first time. Market steady overnight.

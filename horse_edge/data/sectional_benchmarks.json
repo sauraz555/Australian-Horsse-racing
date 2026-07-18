@@ -1,0 +1,5 @@
+{
+  "sprint": {"dist_min": 1000, "dist_max": 1200, "last600_fast": 32.0, "last600_slow": 33.0, "label": "Elite sprinters (1000-1200m)"},
+  "miler":  {"dist_min": 1201, "dist_max": 1600, "last600_fast": 33.0, "last600_slow": 34.0, "label": "Quality milers (1400-1600m)"},
+  "stayer": {"dist_min": 1601, "dist_max": 4000, "last600_fast": 34.5, "last600_slow": 36.0, "label": "Stayers (2000m+)"}
+}

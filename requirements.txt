@@ -1,0 +1,5 @@
+# Deterministic core (weights/pace/sectional/scoring/market/cli) needs NONE of these.
+# Only the ingest adapters use them, and only for the matching input format:
+pdfplumber>=0.11    # PDF form guides
+openpyxl>=3.1       # .xlsx / .xls form guides
+# CSV and pasted text use the Python standard library only.

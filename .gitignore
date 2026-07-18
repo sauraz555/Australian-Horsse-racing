@@ -1,0 +1,8 @@
+__pycache__/
+*.pyc
+.env
+# generated analysis artifacts
+*_race.json
+*_scored.json
+sample_scored.json
+!sample_race.json

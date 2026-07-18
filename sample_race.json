@@ -1,0 +1,33 @@
+{
+  "track": "Randwick",
+  "date": "2026-07-18",
+  "race_no": 6,
+  "distance": 1400,
+  "race_class": "BM88",
+  "condition": "Good 4",
+  "rail": "True",
+  "prize": "$160,000",
+  "field_size": 9,
+  "weather": "Fine",
+  "bias_notes": "none observed early",
+  "runners": [
+    {"number": 1, "name": "Vela Command", "barrier": 3, "weight": 59.0, "jockey": "J McDonald", "trainer": "C Waller", "sire": "Snitzel", "last5": "12x31", "dist_record": "4:2-1-0", "wet_form": "2:0-1-0", "odds": 3.40, "gear": "TT", "notes": "2nd up, strong last 600m", "running_style": "ON-PACE", "last600": 33.2,
+     "factor_scores": {"SPD": 82, "PACE": 74, "SECT": 85, "CLASS": 80, "SUIT": 72, "PREP": 78, "DRAW": 70, "JT": 85, "GEAR": 50, "BREED": 60}},
+    {"number": 2, "name": "Coastal Raider", "barrier": 1, "weight": 58.5, "jockey": "T Berry", "trainer": "J Cummings", "sire": "Zoustar", "last5": "34x12", "dist_record": "6:1-2-1", "wet_form": "3:1-0-1", "odds": 6.00, "gear": "B3", "notes": "leads, tight tempo suits", "running_style": "LEADER", "last600": 33.9,
+     "factor_scores": {"SPD": 74, "PACE": 82, "SECT": 68, "CLASS": 72, "SUIT": 70, "PREP": 70, "DRAW": 80, "JT": 72, "GEAR": 55, "BREED": 58}},
+    {"number": 3, "name": "Northern Myth", "barrier": 8, "weight": 57.0, "jockey": "R King", "trainer": "G Waterhouse", "sire": "Pierro", "last5": "5x461", "dist_record": "3:0-1-0", "wet_form": "1:0-0-0", "odds": 9.50, "gear": "", "notes": "wide draw, closer", "running_style": "BACKMARKER", "last600": 33.5,
+     "factor_scores": {"SPD": 68, "PACE": 58, "SECT": 78, "CLASS": 66, "SUIT": 64, "PREP": 65, "DRAW": 45, "JT": 66, "GEAR": 50, "BREED": 55}},
+    {"number": 4, "name": "Ember Lane", "barrier": 5, "weight": 56.5, "jockey": "K McEvoy", "trainer": "A Freedman", "sire": "Written Tycoon", "last5": "21x23", "dist_record": "5:1-2-0", "wet_form": "4:1-1-1", "odds": 7.50, "gear": "XN", "notes": "on-pace, consistent", "running_style": "ON-PACE", "last600": 33.7,
+     "factor_scores": {"SPD": 72, "PACE": 76, "SECT": 70, "CLASS": 70, "SUIT": 74, "PREP": 72, "DRAW": 68, "JT": 74, "GEAR": 52, "BREED": 56}},
+    {"number": 5, "name": "Grand Ledger", "barrier": 2, "weight": 56.0, "jockey": "N Rawiller", "trainer": "C Maher", "sire": "So You Think", "last5": "113x2", "dist_record": "7:3-1-1", "wet_form": "2:1-0-0", "odds": 4.80, "gear": "", "notes": "on-speed, in-form", "running_style": "LEADER", "last600": 33.4,
+     "factor_scores": {"SPD": 84, "PACE": 80, "SECT": 74, "CLASS": 82, "SUIT": 76, "PREP": 80, "DRAW": 78, "JT": 80, "GEAR": 50, "BREED": 62}},
+    {"number": 6, "name": "Silver Reprise", "barrier": 9, "weight": 55.5, "jockey": "J Parr", "trainer": "M Newnham", "sire": "I Am Invincible", "last5": "x6574", "dist_record": "4:0-0-1", "wet_form": "0:0-0-0", "odds": 21.00, "gear": "B1", "notes": "blinkers first time, backmarker", "running_style": "BACKMARKER", "last600": 33.8,
+     "factor_scores": {"SPD": 55, "PACE": 48, "SECT": 60, "CLASS": 55, "SUIT": 50, "PREP": 58, "DRAW": 40, "JT": 62, "GEAR": 70, "BREED": 52}},
+    {"number": 7, "name": "Tempest Bay", "barrier": 6, "weight": 55.0, "jockey": "T Clark", "trainer": "K Lees", "sire": "Sebring", "last5": "43x15", "dist_record": "5:1-1-1", "wet_form": "3:0-1-1", "odds": 11.00, "gear": "", "notes": "midfield, honest", "running_style": "MIDFIELD", "last600": 33.9,
+     "factor_scores": {"SPD": 66, "PACE": 64, "SECT": 68, "CLASS": 65, "SUIT": 66, "PREP": 68, "DRAW": 66, "JT": 64, "GEAR": 50, "BREED": 54}},
+    {"number": 8, "name": "Quiet Persuasion", "barrier": 4, "weight": 54.5, "jockey": "B Shinn", "trainer": "J Thompson", "sire": "Snitzel", "last5": "2x681", "dist_record": "4:1-0-0", "wet_form": "1:0-0-0", "odds": 13.00, "gear": "W", "notes": "first-up, trial winner", "running_style": "BACKMARKER", "last600": 34.1,
+     "factor_scores": {"SPD": 64, "PACE": 60, "SECT": 66, "CLASS": 63, "SUIT": 62, "PREP": 55, "DRAW": 64, "JT": 68, "GEAR": 52, "BREED": 60}},
+    {"number": 9, "name": "Lucky Cordon", "barrier": 7, "weight": 54.0, "jockey": "H Bowman", "trainer": "P Perry", "sire": "Zoustar", "last5": "6x233", "dist_record": "6:0-2-2", "wet_form": "2:0-1-0", "odds": 15.00, "gear": "", "notes": "midfield closer", "running_style": "MIDFIELD", "last600": 33.6,
+     "factor_scores": {"SPD": 62, "PACE": 58, "SECT": 70, "CLASS": 62, "SUIT": 64, "PREP": 66, "DRAW": 60, "JT": 78, "GEAR": 50, "BREED": 55}}
+  ]
+}

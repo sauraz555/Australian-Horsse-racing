@@ -1,0 +1,9 @@
+{
+  "Snitzel":         {"wet_sr": 15.7, "assessment": "Versatile — handles wet", "adjust": 0},
+  "I Am Invincible": {"wet_sr": 12.0, "assessment": "Dry-track preference — penalize on wet", "adjust": -1},
+  "Zoustar":         {"wet_sr": 15.0, "assessment": "Moderate wet ability", "adjust": 0},
+  "So You Think":    {"wet_sr": 13.4, "assessment": "Improves on wet — upgrade", "adjust": 1},
+  "Pierro":          {"wet_sr": null, "assessment": "Versatile, good across conditions", "adjust": 0},
+  "Sebring":         {"wet_sr": 13.0, "assessment": "Wet-track value sire", "adjust": 1},
+  "Written Tycoon":  {"wet_sr": null, "assessment": "Neutral", "adjust": 0}
+}

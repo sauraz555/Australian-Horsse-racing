@@ -1,0 +1,16 @@
+{
+  "Randwick":      {"bias": "fair",    "tight": false, "straight_m": 410, "synthetic": false, "rail_note": "True rail = inside dominant; suits strong finishers (Randwick Rise ~250m). Barriers 1-6 ideal in sprints.", "favours": "strong finishers"},
+  "Kensington":    {"bias": "on-pace", "tight": true,  "straight_m": null, "synthetic": false, "rail_note": "Tight circuit; strong on-pace bias, especially with the rail out. Weight front-runners and inside draws.", "favours": "leaders / inside"},
+  "Flemington":    {"bias": "fair",    "tight": false, "straight_m": 450, "synthetic": false, "rail_note": "Longest straight in Australia. Straight Six (1000-1200m) no strong barrier bias; 1600m/2500m inside slightly advantaged.", "favours": "all styles"},
+  "Caulfield":     {"bias": "on-pace", "tight": true,  "straight_m": 360, "synthetic": false, "rail_note": "Tight turns, short straight. Penalize backmarkers in sprints; on-pace horses +10-15%. Rail position critical.", "favours": "on-pace"},
+  "Rosehill":      {"bias": "leader",  "tight": true,  "straight_m": null, "synthetic": false, "rail_note": "Sharp home turn; front-runners favoured. Barrier 8+ disadvantaged at 1100m; wider than 10 struggles.", "favours": "leaders"},
+  "Eagle Farm":    {"bias": "fair",    "tight": false, "straight_m": 434, "synthetic": false, "rail_note": "Long straight; historically favours runners off the rail in the straight. Always check rail position.", "favours": "off-rail finishers"},
+  "Doomben":       {"bias": "on-pace", "tight": true,  "straight_m": null, "synthetic": false, "rail_note": "Small tight track, short straight. Strong on-pace bias; leaders +15-20%, penalize backmarkers heavily.", "favours": "leaders / on-pace"},
+  "Canterbury":    {"bias": "leader",  "tight": true,  "straight_m": 300, "synthetic": false, "rail_note": "Night racing, very tight ~300m straight. Extreme leader bias; discount closers heavily.", "favours": "leaders"},
+  "Morphettville":  {"bias": "fair",   "tight": false, "straight_m": null, "synthetic": false, "rail_note": "Spacious, one of the fairest tracks in Australia. Minimal bias adjustment needed.", "favours": "all styles"},
+  "Ascot":         {"bias": "on-pace", "tight": false, "straight_m": null, "synthetic": false, "rail_note": "Perth. ~70% winners from first 4 on the turn. Very strong on-pace weighting required.", "favours": "on-pace"},
+  "Newcastle":     {"bias": "fair",    "tight": false, "straight_m": null, "synthetic": false, "rail_note": "Generally fair; inside bias on the true rail.", "favours": "inside on true rail"},
+  "Moonee Valley": {"bias": "on-pace", "tight": true,  "straight_m": 173, "synthetic": false, "rail_note": "Very tight circuit, short 173m straight. On-pace advantage; hard to make ground from the back.", "favours": "leaders / on-pace"},
+  "Pakenham":      {"bias": "fair",    "tight": false, "straight_m": null, "synthetic": true,  "rail_note": "Synthetic. Plays like Soft 5-6 turf; wet-track gallopers translate well. Minimal draw bias, fair for all styles.", "favours": "all styles"},
+  "Geelong":       {"bias": "fair",    "tight": false, "straight_m": null, "synthetic": true,  "rail_note": "Synthetic. Minimal draw bias; fair for all running styles.", "favours": "all styles"}
+}
