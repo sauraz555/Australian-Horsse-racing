@@ -192,6 +192,9 @@ def cmd_score(args) -> None:
     dest = args.output or _default_out(args.race, "_scored.json", strip="_race")
     _write_json(dest, out)
     _print_summary(out)
+    if not summ.get("n_priced"):
+        print("\n⚠ NO ODDS on any runner — rankings/exotics are done, but value, EV and "
+              "staking need prices. Add an \"odds\" (decimal) to each runner and re-run.")
     print(f"\nWrote {dest}")
 
 
@@ -220,6 +223,10 @@ are only compared to it at the end.
 
   5. REPORT   Write the final markdown in the EXACT format in SYSTEM_PROMPT.md,
               using the numbers in scored.json verbatim.
+
+SANDBOX TIP: if `python -m horse_edge.cli ...` or relative paths fail in your
+agent ("non-absolute file path"), run the single-file entry with ABSOLUTE paths:
+  python "<repo>/hre.py" score "<repo>/race.json"
 
 Try it now:  python -m horse_edge.cli demo
 Read next:   AGENTS.md  (contract)  ·  skills.md  (sub-scoring)  ·  SYSTEM_PROMPT.md

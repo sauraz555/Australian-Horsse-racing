@@ -76,6 +76,14 @@ runner:
 ```
 python -m horse_edge.cli score race.json [-o scored.json] [--bankroll 100] [--spread 7.0]
 ```
+**Sandbox-safe form (use this if `-m` or relative paths fail in your environment
+with "non-absolute file path"):** run the single-file entry with ABSOLUTE paths:
+```
+python "<repo>/hre.py" score "<repo>/race.json" -o "<repo>/scored.json"
+```
+**Odds are required for value.** If you didn't fill each runner's `odds` (decimal)
+in Step 2, the scorer still ranks and builds exotics but prints "NO ODDS" and
+cannot compute value / EV / staking — go back and research the market prices.
 Python computes, deterministically:
 - **Race grade band** (low / mid / high) from the class string, with a framing note.
 - Conditional **weight adjustments** for the race's conditions (heavy/soft track,

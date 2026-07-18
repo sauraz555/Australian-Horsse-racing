@@ -1,0 +1,776 @@
+{
+  "race": {
+    "track": "Flemington",
+    "date": "2026-07-18",
+    "race_no": 3,
+    "distance": 1600,
+    "race_class": "BM78",
+    "condition": "Soft 6",
+    "rail": "Out 3m Entire Circuit",
+    "prize": "$80,000",
+    "field_size": 11,
+    "weather": "Fine",
+    "bias_notes": ""
+  },
+  "conditions": {
+    "track": "Flemington",
+    "condition": "Soft 6",
+    "distance": 1600,
+    "field_size": 11,
+    "race_class": "BM78",
+    "tight": false,
+    "first_starters": false,
+    "first_up": false,
+    "gear_change": true
+  },
+  "race_grade": {
+    "matched": "BM78-79",
+    "rank": 50,
+    "band": "mid",
+    "note": "Mid-grade race — proven class record matters. Favour horses that have already handled this grade over unexposed types stepping up."
+  },
+  "adjusted_weights_pct": {
+    "SPD": 20.2,
+    "PACE": 15.6,
+    "SECT": 13.8,
+    "CLASS": 9.2,
+    "SUIT": 14.7,
+    "PREP": 7.3,
+    "DRAW": 6.4,
+    "JT": 4.6,
+    "GEAR": 5.5,
+    "BREED": 2.8
+  },
+  "weight_notes": [
+    "GEAR → 6 (significant gear change context)",
+    "SUIT → 16 (soft track — check soft-ground form)"
+  ],
+  "pace_map": {
+    "groups": {
+      "LEADER": [],
+      "ON-PACE": [
+        "Cat Noir"
+      ],
+      "MIDFIELD": [
+        "Barbie'sdreamworld",
+        "Madiyya",
+        "Storm Season",
+        "Marine Empress",
+        "Street Lark"
+      ],
+      "BACKMARKER": [
+        "Sweet Jasmine",
+        "Changing Colours",
+        "Lake Vostok",
+        "Impending Shadow",
+        "Ataegina"
+      ]
+    },
+    "ppi": {
+      "ppi": 1,
+      "tempo": "SLOW",
+      "favours": "LEADERS and ON-PACE runners",
+      "n_leaders": 0,
+      "n_onpace": 1
+    },
+    "shape": "No genuine leader — tactical race; box-seat horse advantaged.",
+    "track_bias": {
+      "track": "Flemington",
+      "bias": "fair",
+      "tight": false,
+      "straight_m": 450,
+      "synthetic": false,
+      "rail_note": "Longest straight in Australia. Straight Six (1000-1200m) no strong barrier bias; 1600m/2500m inside slightly advantaged.",
+      "favours": "all styles"
+    }
+  },
+  "market_summary": {
+    "overround": null,
+    "overround_pct": null,
+    "n_priced": 0,
+    "n_runners": 11
+  },
+  "bankroll": 100.0,
+  "spread": 7.0,
+  "exotics": {
+    "sims": 20000,
+    "note": "Model-based (Plackett-Luce over ratings). Exotic EV needs live pool dividends — size these small; treat as structured plays, not EV-verified.",
+    "best2_for_top4": [
+      {
+        "number": 5,
+        "name": "Madiyya",
+        "p_top4": 0.4678
+      },
+      {
+        "number": 7,
+        "name": "Lake Vostok",
+        "p_top4": 0.4549
+      }
+    ],
+    "quinella": {
+      "selections": [
+        {
+          "number": 5,
+          "name": "Madiyya"
+        },
+        {
+          "number": 7,
+          "name": "Lake Vostok"
+        }
+      ],
+      "hit_prob": 0.0334
+    },
+    "trifecta": {
+      "structure": "banker to win, over 3 for 2nd/3rd",
+      "banker": {
+        "number": 5,
+        "name": "Madiyya"
+      },
+      "minors": [
+        {
+          "number": 7,
+          "name": "Lake Vostok"
+        },
+        {
+          "number": 1,
+          "name": "Sweet Jasmine"
+        },
+        {
+          "number": 9,
+          "name": "Cat Noir"
+        }
+      ],
+      "combos": 6,
+      "hit_prob": 0.0152,
+      "suggested_flexi_outlay": 1.0,
+      "per_combo": 0.17,
+      "confidence": "Med"
+    },
+    "trifecta_most_likely": {
+      "selections": [
+        {
+          "number": 7,
+          "name": "Lake Vostok"
+        },
+        {
+          "number": 5,
+          "name": "Madiyya"
+        },
+        {
+          "number": 1,
+          "name": "Sweet Jasmine"
+        }
+      ],
+      "prob": 0.0032
+    },
+    "first_four": {
+      "structure": "banker to win, over 4 for 2nd/3rd/4th",
+      "banker": {
+        "number": 5,
+        "name": "Madiyya"
+      },
+      "minors": [
+        {
+          "number": 7,
+          "name": "Lake Vostok"
+        },
+        {
+          "number": 1,
+          "name": "Sweet Jasmine"
+        },
+        {
+          "number": 9,
+          "name": "Cat Noir"
+        },
+        {
+          "number": 3,
+          "name": "Changing Colours"
+        }
+      ],
+      "combos": 24,
+      "hit_prob": 0.0115,
+      "suggested_flexi_outlay": 0.5,
+      "per_combo": 0.02,
+      "confidence": "Low"
+    },
+    "first_four_most_likely": {
+      "selections": [
+        {
+          "number": 9,
+          "name": "Cat Noir"
+        },
+        {
+          "number": 5,
+          "name": "Madiyya"
+        },
+        {
+          "number": 1,
+          "name": "Sweet Jasmine"
+        },
+        {
+          "number": 7,
+          "name": "Lake Vostok"
+        }
+      ],
+      "prob": 0.0009
+    }
+  },
+  "runners": [
+    {
+      "number": 5,
+      "name": "Madiyya",
+      "barrier": 8,
+      "weight": 59,
+      "jockey": "Jackson Radley",
+      "trainer": "Ben, Will & Jd Hayes",
+      "sire": "Super Seth",
+      "last5": "4320",
+      "dist_record": "4:1-1-1",
+      "wet_form": "2:0-1-0",
+      "odds": null,
+      "gear": "Blinkers FIRST TIME",
+      "notes": "Lame last start, forgive. 2nd prior at Flem BM78. Jockey flying.",
+      "running_style": "MIDFIELD",
+      "last600": 37.02,
+      "factor_scores": {
+        "SPD": 75,
+        "PACE": 75,
+        "SECT": 70,
+        "CLASS": 85,
+        "SUIT": 80,
+        "PREP": 75,
+        "DRAW": 70,
+        "JT": 85,
+        "GEAR": 85,
+        "BREED": 70
+      },
+      "flags": [
+        "GEAR: blinkers first time"
+      ],
+      "sectional": {
+        "band": "miler",
+        "label": "Quality milers (1400-1600m)",
+        "flag": "BELOW",
+        "note": "last 600m 37.0s slower than par 34.0s"
+      },
+      "total_rating": 76.514,
+      "tissue_prob": 0.12417,
+      "market_prob": null,
+      "devig_prob": null,
+      "edge": null,
+      "value_class": "NO ODDS — cannot price value",
+      "ev": null,
+      "kelly_fraction": 0.0,
+      "kelly_stake": 0.0,
+      "bet": "NO ODDS",
+      "p_win": 0.1243,
+      "p_top2": 0.2402,
+      "p_top3": 0.3558,
+      "p_top4": 0.4678
+    },
+    {
+      "number": 7,
+      "name": "Lake Vostok",
+      "barrier": 1,
+      "weight": 57.5,
+      "jockey": "Bailey Kinninmont",
+      "trainer": "Luke Oliver",
+      "sire": "Russian Revolution",
+      "last5": "423x7",
+      "dist_record": "6:2-1-3",
+      "wet_form": "4:2-1-0",
+      "odds": null,
+      "gear": "",
+      "notes": "2nd up. Won 2nd up previously at Flem BM78.",
+      "running_style": "BACKMARKER",
+      "last600": 35.35,
+      "factor_scores": {
+        "SPD": 75,
+        "PACE": 70,
+        "SECT": 70,
+        "CLASS": 80,
+        "SUIT": 85,
+        "PREP": 80,
+        "DRAW": 85,
+        "JT": 75,
+        "GEAR": 70,
+        "BREED": 70
+      },
+      "flags": [],
+      "sectional": {
+        "band": "miler",
+        "label": "Quality milers (1400-1600m)",
+        "flag": "BELOW",
+        "note": "last 600m 35.4s slower than par 34.0s"
+      },
+      "total_rating": 76.055,
+      "tissue_prob": 0.11906,
+      "market_prob": null,
+      "devig_prob": null,
+      "edge": null,
+      "value_class": "NO ODDS — cannot price value",
+      "ev": null,
+      "kelly_fraction": 0.0,
+      "kelly_stake": 0.0,
+      "bet": "NO ODDS",
+      "p_win": 0.1174,
+      "p_top2": 0.2349,
+      "p_top3": 0.3464,
+      "p_top4": 0.4549
+    },
+    {
+      "number": 1,
+      "name": "Sweet Jasmine",
+      "barrier": 10,
+      "weight": 60,
+      "jockey": "Dylan Dean",
+      "trainer": "Luke Oliver",
+      "sire": "So You Think",
+      "last5": "15291",
+      "dist_record": "9:2-4-0",
+      "wet_form": "13:4-4-0",
+      "odds": null,
+      "gear": "Ear Muffs",
+      "notes": "Won last start Bm70 over 1500m on Heavy. 10 days since.",
+      "running_style": "BACKMARKER",
+      "last600": 36.98,
+      "factor_scores": {
+        "SPD": 80,
+        "PACE": 70,
+        "SECT": 65,
+        "CLASS": 80,
+        "SUIT": 85,
+        "PREP": 85,
+        "DRAW": 65,
+        "JT": 75,
+        "GEAR": 70,
+        "BREED": 70
+      },
+      "flags": [],
+      "sectional": {
+        "band": "miler",
+        "label": "Quality milers (1400-1600m)",
+        "flag": "BELOW",
+        "note": "last 600m 37.0s slower than par 34.0s"
+      },
+      "total_rating": 75.459,
+      "tissue_prob": 0.11267,
+      "market_prob": null,
+      "devig_prob": null,
+      "edge": null,
+      "value_class": "NO ODDS — cannot price value",
+      "ev": null,
+      "kelly_fraction": 0.0,
+      "kelly_stake": 0.0,
+      "bet": "NO ODDS",
+      "p_win": 0.1113,
+      "p_top2": 0.2239,
+      "p_top3": 0.3367,
+      "p_top4": 0.4441
+    },
+    {
+      "number": 9,
+      "name": "Cat Noir",
+      "barrier": 6,
+      "weight": 54,
+      "jockey": "Ryan Houston",
+      "trainer": "Jamie Edwards",
+      "sire": "Merchant Navy",
+      "last5": "39322",
+      "dist_record": "11:2-3-3",
+      "wet_form": "8:1-3-2",
+      "odds": null,
+      "gear": "",
+      "notes": "Consistent, 2nd in BM70.",
+      "running_style": "ON-PACE",
+      "last600": 36.16,
+      "factor_scores": {
+        "SPD": 75,
+        "PACE": 75,
+        "SECT": 75,
+        "CLASS": 70,
+        "SUIT": 80,
+        "PREP": 85,
+        "DRAW": 75,
+        "JT": 70,
+        "GEAR": 70,
+        "BREED": 70
+      },
+      "flags": [],
+      "sectional": {
+        "band": "miler",
+        "label": "Quality milers (1400-1600m)",
+        "flag": "BELOW",
+        "note": "last 600m 36.2s slower than par 34.0s"
+      },
+      "total_rating": 75.367,
+      "tissue_prob": 0.11172,
+      "market_prob": null,
+      "devig_prob": null,
+      "edge": null,
+      "value_class": "NO ODDS — cannot price value",
+      "ev": null,
+      "kelly_fraction": 0.0,
+      "kelly_stake": 0.0,
+      "bet": "NO ODDS",
+      "p_win": 0.1129,
+      "p_top2": 0.2205,
+      "p_top3": 0.3318,
+      "p_top4": 0.4387
+    },
+    {
+      "number": 3,
+      "name": "Changing Colours",
+      "barrier": 3,
+      "weight": 59,
+      "jockey": "Luke Cartwright",
+      "trainer": "Lucy Yeomans",
+      "sire": "The Autumn Sun",
+      "last5": "4",
+      "dist_record": "2:0-2-0",
+      "wet_form": "5:0-2-0",
+      "odds": null,
+      "gear": "Blinkers, Tongue Tie",
+      "notes": "2nd up. 4th at Flem BM90. Nice return.",
+      "running_style": "BACKMARKER",
+      "last600": 35.35,
+      "factor_scores": {
+        "SPD": 75,
+        "PACE": 75,
+        "SECT": 75,
+        "CLASS": 85,
+        "SUIT": 70,
+        "PREP": 80,
+        "DRAW": 80,
+        "JT": 70,
+        "GEAR": 70,
+        "BREED": 70
+      },
+      "flags": [],
+      "sectional": {
+        "band": "miler",
+        "label": "Quality milers (1400-1600m)",
+        "flag": "BELOW",
+        "note": "last 600m 35.4s slower than par 34.0s"
+      },
+      "total_rating": 75.229,
+      "tissue_prob": 0.1103,
+      "market_prob": null,
+      "devig_prob": null,
+      "edge": null,
+      "value_class": "NO ODDS — cannot price value",
+      "ev": null,
+      "kelly_fraction": 0.0,
+      "kelly_stake": 0.0,
+      "bet": "NO ODDS",
+      "p_win": 0.1091,
+      "p_top2": 0.2203,
+      "p_top3": 0.3255,
+      "p_top4": 0.4276
+    },
+    {
+      "number": 2,
+      "name": "Barbie'sdreamworld",
+      "barrier": 9,
+      "weight": 59.5,
+      "jockey": "Dakotah Keane",
+      "trainer": "Peter Chow",
+      "sire": "American Pharoah",
+      "last5": "75",
+      "dist_record": "5:1-2-1",
+      "wet_form": "8:1-2-1",
+      "odds": null,
+      "gear": "Ear Muffs (Pre-Race Only)",
+      "notes": "3rd up. Improved 2nd up in Leilani Final.",
+      "running_style": "MIDFIELD",
+      "last600": 34.44,
+      "factor_scores": {
+        "SPD": 75,
+        "PACE": 70,
+        "SECT": 80,
+        "CLASS": 75,
+        "SUIT": 75,
+        "PREP": 85,
+        "DRAW": 65,
+        "JT": 65,
+        "GEAR": 70,
+        "BREED": 70
+      },
+      "flags": [],
+      "sectional": {
+        "band": "miler",
+        "label": "Quality milers (1400-1600m)",
+        "flag": "BELOW",
+        "note": "last 600m 34.4s slower than par 34.0s"
+      },
+      "total_rating": 74.128,
+      "tissue_prob": 0.09948,
+      "market_prob": null,
+      "devig_prob": null,
+      "edge": null,
+      "value_class": "NO ODDS — cannot price value",
+      "ev": null,
+      "kelly_fraction": 0.0,
+      "kelly_stake": 0.0,
+      "bet": "NO ODDS",
+      "p_win": 0.1022,
+      "p_top2": 0.2019,
+      "p_top3": 0.2984,
+      "p_top4": 0.3947
+    },
+    {
+      "number": 11,
+      "name": "Street Lark",
+      "barrier": 5,
+      "weight": 54,
+      "jockey": "Emily Pozman",
+      "trainer": "Peter Moody & Katherine Coleman",
+      "sire": "Castelvecchio",
+      "last5": "3463",
+      "dist_record": "4:1-0-1",
+      "wet_form": "6:1-0-1",
+      "odds": null,
+      "gear": "Blinkers",
+      "notes": "3rd in BM70.",
+      "running_style": "MIDFIELD",
+      "last600": 36.4,
+      "factor_scores": {
+        "SPD": 70,
+        "PACE": 70,
+        "SECT": 70,
+        "CLASS": 65,
+        "SUIT": 75,
+        "PREP": 85,
+        "DRAW": 75,
+        "JT": 75,
+        "GEAR": 70,
+        "BREED": 70
+      },
+      "flags": [],
+      "sectional": {
+        "band": "miler",
+        "label": "Quality milers (1400-1600m)",
+        "flag": "BELOW",
+        "note": "last 600m 36.4s slower than par 34.0s"
+      },
+      "total_rating": 71.927,
+      "tissue_prob": 0.08055,
+      "market_prob": null,
+      "devig_prob": null,
+      "edge": null,
+      "value_class": "NO ODDS — cannot price value",
+      "ev": null,
+      "kelly_fraction": 0.0,
+      "kelly_stake": 0.0,
+      "bet": "NO ODDS",
+      "p_win": 0.0776,
+      "p_top2": 0.1637,
+      "p_top3": 0.2451,
+      "p_top4": 0.3332
+    },
+    {
+      "number": 8,
+      "name": "Impending Shadow",
+      "barrier": 11,
+      "weight": 54.5,
+      "jockey": "Rose Hammond",
+      "trainer": "Gwenda Johnstone",
+      "sire": "Impending",
+      "last5": "97641",
+      "dist_record": "8:2-1-1",
+      "wet_form": "22:5-1-4",
+      "odds": null,
+      "gear": "Blinkers",
+      "notes": "Won BM62, steps up.",
+      "running_style": "BACKMARKER",
+      "last600": 36.2,
+      "factor_scores": {
+        "SPD": 70,
+        "PACE": 70,
+        "SECT": 75,
+        "CLASS": 60,
+        "SUIT": 75,
+        "PREP": 85,
+        "DRAW": 65,
+        "JT": 70,
+        "GEAR": 70,
+        "BREED": 70
+      },
+      "flags": [],
+      "sectional": {
+        "band": "miler",
+        "label": "Quality milers (1400-1600m)",
+        "flag": "BELOW",
+        "note": "last 600m 36.2s slower than par 34.0s"
+      },
+      "total_rating": 71.284,
+      "tissue_prob": 0.07565,
+      "market_prob": null,
+      "devig_prob": null,
+      "edge": null,
+      "value_class": "NO ODDS — cannot price value",
+      "ev": null,
+      "kelly_fraction": 0.0,
+      "kelly_stake": 0.0,
+      "bet": "NO ODDS",
+      "p_win": 0.074,
+      "p_top2": 0.1507,
+      "p_top3": 0.2321,
+      "p_top4": 0.3152
+    },
+    {
+      "number": 12,
+      "name": "Ataegina",
+      "barrier": 2,
+      "weight": 53,
+      "jockey": "Brittany Button",
+      "trainer": "Luke Oliver",
+      "sire": "Kermadec",
+      "last5": "407x62",
+      "dist_record": "12:1-4-1",
+      "wet_form": "16:3-4-0",
+      "odds": null,
+      "gear": "Tongue Tie",
+      "notes": "2nd in BM0-66.",
+      "running_style": "BACKMARKER",
+      "last600": 37.31,
+      "factor_scores": {
+        "SPD": 65,
+        "PACE": 70,
+        "SECT": 65,
+        "CLASS": 60,
+        "SUIT": 75,
+        "PREP": 85,
+        "DRAW": 80,
+        "JT": 65,
+        "GEAR": 70,
+        "BREED": 70
+      },
+      "flags": [],
+      "sectional": {
+        "band": "miler",
+        "label": "Quality milers (1400-1600m)",
+        "flag": "BELOW",
+        "note": "last 600m 37.3s slower than par 34.0s"
+      },
+      "total_rating": 69.633,
+      "tissue_prob": 0.0642,
+      "market_prob": null,
+      "devig_prob": null,
+      "edge": null,
+      "value_class": "NO ODDS — cannot price value",
+      "ev": null,
+      "kelly_fraction": 0.0,
+      "kelly_stake": 0.0,
+      "bet": "NO ODDS",
+      "p_win": 0.0667,
+      "p_top2": 0.1356,
+      "p_top3": 0.2041,
+      "p_top4": 0.2765
+    },
+    {
+      "number": 10,
+      "name": "Marine Empress",
+      "barrier": 4,
+      "weight": 54,
+      "jockey": "Caitlin Hollowood",
+      "trainer": "Grahame Begg",
+      "sire": "Camelot",
+      "last5": "212x6",
+      "dist_record": "1:1-0-0",
+      "wet_form": "4:1-2-0",
+      "odds": null,
+      "gear": "Cross-over Nose Band FIRST TIME",
+      "notes": "2nd up, possible improver.",
+      "running_style": "MIDFIELD",
+      "last600": 34.89,
+      "factor_scores": {
+        "SPD": 65,
+        "PACE": 70,
+        "SECT": 70,
+        "CLASS": 60,
+        "SUIT": 65,
+        "PREP": 80,
+        "DRAW": 75,
+        "JT": 70,
+        "GEAR": 75,
+        "BREED": 70
+      },
+      "flags": [
+        "GEAR: blinkers first time"
+      ],
+      "sectional": {
+        "band": "miler",
+        "label": "Quality milers (1400-1600m)",
+        "flag": "BELOW",
+        "note": "last 600m 34.9s slower than par 34.0s"
+      },
+      "total_rating": 68.67,
+      "tissue_prob": 0.05824,
+      "market_prob": null,
+      "devig_prob": null,
+      "edge": null,
+      "value_class": "NO ODDS — cannot price value",
+      "ev": null,
+      "kelly_fraction": 0.0,
+      "kelly_stake": 0.0,
+      "bet": "NO ODDS",
+      "p_win": 0.0585,
+      "p_top2": 0.1184,
+      "p_top3": 0.1841,
+      "p_top4": 0.252
+    },
+    {
+      "number": 6,
+      "name": "Storm Season",
+      "barrier": 7,
+      "weight": 58,
+      "jockey": "Olivia East",
+      "trainer": "Mick Price & Michael Kent Jnr",
+      "sire": "Toronado",
+      "last5": "11x70",
+      "dist_record": "2:0-1-0",
+      "wet_form": "3:0-1-0",
+      "odds": null,
+      "gear": "Tongue Tie FIRST TIME",
+      "notes": "3rd up. Poor last 2 runs.",
+      "running_style": "MIDFIELD",
+      "last600": 37.41,
+      "factor_scores": {
+        "SPD": 60,
+        "PACE": 70,
+        "SECT": 60,
+        "CLASS": 70,
+        "SUIT": 65,
+        "PREP": 75,
+        "DRAW": 70,
+        "JT": 70,
+        "GEAR": 65,
+        "BREED": 70
+      },
+      "flags": [
+        "GEAR: blinkers first time"
+      ],
+      "sectional": {
+        "band": "miler",
+        "label": "Quality milers (1400-1600m)",
+        "flag": "BELOW",
+        "note": "last 600m 37.4s slower than par 34.0s"
+      },
+      "total_rating": 65.963,
+      "tissue_prob": 0.04395,
+      "market_prob": null,
+      "devig_prob": null,
+      "edge": null,
+      "value_class": "NO ODDS — cannot price value",
+      "ev": null,
+      "kelly_fraction": 0.0,
+      "kelly_stake": 0.0,
+      "bet": "NO ODDS",
+      "p_win": 0.046,
+      "p_top2": 0.09,
+      "p_top3": 0.1401,
+      "p_top4": 0.1953
+    }
+  ]
+}
