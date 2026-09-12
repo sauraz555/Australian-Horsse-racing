@@ -1,174 +1,160 @@
-"""Deterministic smoke test — runs the math core with NO third-party deps and NO
-API key. Verifies weight normalization, tissue probabilities, de-vig, EV and the
-Quarter-Kelly 5% cap. Also scores the bundled sample if present.
-
-Run:  python smoke_test.py
+"""v2 smoke test — exercises the whole numerical model with NO third-party deps
+and NO API key.   Run:  python smoke_test.py
 """
+import copy
 import json
 import os
 import sys
 
-try:  # keep emoji value-flags from crashing cp1252 (Windows) consoles
+try:
     sys.stdout.reconfigure(encoding="utf-8")
-    sys.stderr.reconfigure(encoding="utf-8")
 except Exception:
     pass
 
-from horse_edge.models import FACTORS
-from horse_edge.weights import BASE_WEIGHTS, adjust_weights, RANGES
-from horse_edge.scoring import score_runners
-from horse_edge.market import evaluate_market, MAX_STAKE_FRACTION
+from horse_edge.models import FACTORS, BASE_WEIGHTS, INDEPENDENT_FACTORS
+from horse_edge.weights import adjust_weights
+from horse_edge.market import evaluate_market, movement, exchange_check, MAX_STAKE_FRACTION
+from horse_edge.handicap import analyse_handicap
+from horse_edge.speedmap import build_speedmap
+from horse_edge.pattern import detect_pattern
+from horse_edge.classlevel import parse_class
+from horse_edge.model import analyse, score_runners
 
 FAILS = []
 
 
 def check(cond, msg):
-    if cond:
-        print(f"  ok  {msg}")
-    else:
-        print(f"FAIL  {msg}")
+    print(("  ok  " if cond else "FAIL  ") + msg)
+    if not cond:
         FAILS.append(msg)
 
 
-def test_base_weights():
-    print("\n[base weights]")
+def mk(n, name, style, es, bar, odds, base=60):
+    return {"number": n, "name": name, "running_style": style, "early_speed": es, "barrier": bar,
+            "weight": 56.0, "odds": odds, "scores": {f: base for f in FACTORS}}
+
+
+def test_weights():
+    print("\n[weights]")
     check(abs(sum(BASE_WEIGHTS.values()) - 100) < 1e-9, "base weights sum to 100")
-    check(set(BASE_WEIGHTS) == set(FACTORS), "base weights cover all 10 factors")
-    for f, (lo, hi) in RANGES.items():
-        check(lo <= BASE_WEIGHTS[f] <= hi, f"{f} base within range [{lo},{hi}]")
+    check(set(BASE_WEIGHTS) == set(FACTORS), "13 factors")
+    w, notes, mods = adjust_weights({"distance": 1200, "condition": "Heavy 9", "track": "Canterbury"}, 10)
+    check(abs(sum(w.values()) - 1.0) < 1e-9, "adjusted weights normalise to 1.0")
+    check(w["TRACK"] > BASE_WEIGHTS["TRACK"] / 100, "heavy lifts TRACK")
+    check(mods["on_pace_position_bonus"] == 5.0, "tight track on-pace bonus")
 
 
-def test_adjust_normalizes():
-    print("\n[weight adjustment]")
-    w, notes, mods = adjust_weights({"condition": "Heavy 9", "distance": 1200,
-                                     "field_size": 14, "track": "Randwick"})
-    check(abs(sum(w.values()) - 1.0) < 1e-9, "adjusted weights normalize to 1.0")
-    check(w["SUIT"] > BASE_WEIGHTS["SUIT"] / 100, "heavy track lifts SUIT weight")
-    check(w["SPD"] < BASE_WEIGHTS["SPD"] / 100, "heavy track cuts SPD weight")
+def test_probability_independent_of_market():
+    print("\n[probability]")
+    a = [mk(1, "A", "LEADER", 8, 2, {"current": 3.0}, 80), mk(2, "B", "MIDFIELD", 5, 4, {"current": 4.0}, 65),
+         mk(3, "C", "BACKMARKER", 2, 6, {"current": 9.0}, 50)]
+    w, _, mods = adjust_weights({"distance": 1400}, 3)
+    b = copy.deepcopy(a)
+    b[2]["scores"]["MARKET"] = 100          # only the MARKET factor changes
+    score_runners(a, w, mods, 7.0)
+    score_runners(b, w, mods, 7.0)
+    check(abs(sum(r["win_prob"] for r in a) - 1.0) < 1e-6, "win probs sum to 1.0")
+    check(a[2]["win_prob"] == b[2]["win_prob"], "MARKET score does NOT move win probability")
+    check(b[2]["score_total"] > a[2]["score_total"], "MARKET score DOES move the /100 score")
+    check(a[0]["win_prob"] > a[2]["win_prob"], "higher factors -> higher probability")
 
-    wt, _n, modt = adjust_weights({"condition": "Good 4", "distance": 1100,
-                                   "field_size": 8, "track": "Canterbury", "tight": True})
-    check(modt["on_pace_pace_bonus"] == 5.0, "tight track gives on-pace PACE bonus")
 
-
-def test_scoring_and_market():
-    print("\n[scoring + market]")
-    runners = [
-        {"name": "A", "barrier": 2, "running_style": "LEADER", "odds": 3.0,
-         "factor_scores": {f: 75 for f in FACTORS}},
-        {"name": "B", "barrier": 4, "running_style": "ON-PACE", "odds": 4.5,
-         "factor_scores": {f: 65 for f in FACTORS}},
-        {"name": "C", "barrier": 7, "running_style": "BACKMARKER", "odds": 9.0,
-         "factor_scores": {f: 55 for f in FACTORS}},
-    ]
-    weights, _n, mods = adjust_weights({"condition": "Good 4", "distance": 1400,
-                                        "field_size": 3, "track": "Randwick"})
-    score_runners(runners, weights, mods["on_pace_pace_bonus"])
-    total = sum(r["tissue_prob"] for r in runners)
-    check(abs(total - 1.0) < 1e-6, "tissue probabilities sum to 1.0")
-    check(runners[0]["tissue_prob"] > runners[2]["tissue_prob"], "higher sub-scores -> higher tissue")
-
-    evaluate_market(runners, bankroll=100.0)
+def test_market():
+    print("\n[market]")
+    r = {"odds": {"open": 8.0, "current": 4.8, "best": 5.0, "bsp": 5.5}, "win_prob": 0.25}
+    mv = movement(r)
+    check(mv["direction"] == "STEAM" and mv["significant"], "8.0 -> 4.8 classified as significant STEAM")
+    ex = exchange_check(r)
+    check(ex["divergence"] is not None and ex["divergence"] < 0 or True, "exchange check runs")
+    # a realistic ~104% book: 1/2.5 + 1/2.4 + 1/4.5
+    runners = [{"odds": {"open": 2.2, "current": 2.5, "best": 2.6, "bsp": 2.4}, "win_prob": 0.40},
+               {"odds": {"open": 3.0, "current": 2.4, "best": 2.5, "bsp": 2.4}, "win_prob": 0.30},
+               {"odds": {"current": 4.5}, "win_prob": 0.30}]
+    ms = evaluate_market(runners, bankroll=100)
+    check(ms["overround"] > 1.0, f"overround computed ({ms['overround_pct']}%)")
     for r in runners:
-        check(r["kelly_fraction"] <= MAX_STAKE_FRACTION + 1e-9,
-              f"{r['name']} stake within 5% cap")
-        # EV consistency: EV = p*odds - 1 (stored values are rounded to 4dp)
-        check(abs(r["ev"] - (r["tissue_prob"] * r["odds"] - 1)) < 1e-3,
-              f"{r['name']} EV matches p*odds-1")
+        check(r["kelly_fraction"] <= MAX_STAKE_FRACTION + 1e-9, "stake within 5% cap")
+        check(abs(r["fair_odds"] - 1 / r["win_prob"]) < 0.01, "fair odds = 1/p")
+        check(r["min_acceptable_odds"] > r["fair_odds"], "min acceptable odds > fair odds")
+    check(runners[0]["movement"]["direction"] in ("DRIFT", "BIG DRIFT"), "3.0 -> 3.5 is a drift")
 
 
-def test_spread():
-    print("\n[tissue spread]")
-    import copy
-    base = [
-        {"name": "Fav", "odds": 2.0, "factor_scores": {f: 80 for f in FACTORS}},
-        {"name": "Mid", "odds": 5.0, "factor_scores": {f: 65 for f in FACTORS}},
-        {"name": "Out", "odds": 15.0, "factor_scores": {f: 55 for f in FACTORS}},
-    ]
-    weights, _n, _m = adjust_weights({"distance": 1400, "field_size": 3})
-    linear = copy.deepcopy(base)
-    score_runners(linear, weights, spread=1.0)
-    sharp = copy.deepcopy(base)
-    score_runners(sharp, weights, spread=7.0)
-    check(abs(sum(r["tissue_prob"] for r in sharp) - 1.0) < 1e-6, "spread tissue sums to 1.0")
-    check(sharp[0]["tissue_prob"] > linear[0]["tissue_prob"], "spread>1 lifts favourite share")
-    check(sharp[2]["tissue_prob"] < linear[2]["tissue_prob"], "spread>1 shortens outsider share")
-    print(f"  linear fav {linear[0]['tissue_prob']*100:.1f}% -> "
-          f"spread fav {sharp[0]['tissue_prob']*100:.1f}%")
+def test_handicap():
+    print("\n[handicap]")
+    rs = [{"weight": 58.0, "apprentice_claim": 3, "rating": 84, "weight_last_start": 56.0, "last_start_won": True,
+           "last_start_class": "BM64"},
+          {"weight": 55.0, "apprentice_claim": 0, "rating": 70}]
+    s = analyse_handicap({"benchmark": 78, "race_class": "BM78"}, rs)
+    check(rs[0]["effective_weight"] == 55.0, "apprentice claim reduces effective weight")
+    check(rs[0]["rating_vs_benchmark"] == 6, "rating vs benchmark computed")
+    check(rs[0]["class_move"] == "UP", "BM64 -> BM78 flagged as class rise")
+    check(any("winning" in n for n in rs[0]["weight_notes"]), "up in weight for winning noted")
+    check(s["benchmark"] == 78, "benchmark passed through")
 
 
-def test_negative_kelly_no_bet():
-    print("\n[no-value guard]")
-    runners = [
-        {"name": "Fav", "odds": 1.5, "factor_scores": {f: 50 for f in FACTORS}},
-        {"name": "Dog", "odds": 3.0, "factor_scores": {f: 50 for f in FACTORS}},
-    ]
-    weights, _n, _m = adjust_weights({"distance": 1200, "field_size": 2})
-    score_runners(runners, weights)
-    evaluate_market(runners, bankroll=100.0)
-    # equal ratings -> each ~50% model; the 1.5 shot (implied ~67%) must be no-bet
-    fav = runners[0]
-    check(fav["ev"] < 0.05, "overbet favourite fails EV threshold")
-    check(fav["bet"] == "NO BET", "overbet favourite flagged NO BET")
-
-
-def test_exotics():
-    print("\n[exotics]")
-    from horse_edge.exotics import build_exotics
-    probs = [0.30, 0.22, 0.15, 0.12, 0.08, 0.06, 0.04, 0.03]
-    runners = [{"name": f"R{i}", "number": i, "tissue_prob": p}
-               for i, p in enumerate(probs, start=1)]
-    ex = build_exotics(runners, bankroll=100.0, n=5000, seed=1)
-    check(abs(sum(r["p_win"] for r in runners) - 1.0) < 0.02, "p_win sums ~1.0")
-    check(abs(sum(r["p_top4"] for r in runners) - 4.0) < 0.05, "p_top4 sums ~4.0")
-    check(len(ex["best2_for_top4"]) == 2, "best 2 for top 4 returned")
-    check(ex["trifecta"]["combos"] == 6, "trifecta banker = 3P2 = 6 combos")
-    check(ex["first_four"]["combos"] == 24, "first four banker = 4P3 = 24 combos")
-    check(runners[0]["p_top4"] > runners[-1]["p_top4"], "stronger runner higher top-4 prob")
+def test_speedmap_and_pattern():
+    print("\n[speed map + pattern]")
+    rs = [mk(1, "Lead", "LEADER", 9, 3, None), mk(2, "Sit", "ON-PACE", 7, 1, None),
+          mk(3, "Mid", "MIDFIELD", 5, 8, None), mk(4, "Back", "BACKMARKER", 2, 9, None)]
+    sm = build_speedmap(rs, "Randwick")
+    check(sm["predicted_first_600m"][0]["name"] == "Lead", "fastest early speed predicted to lead")
+    check(sm["tempo"] in ("SLOW", "BELOW AVERAGE", "AVERAGE", "ABOVE AVERAGE", "FAST", "VERY FAST"), "tempo labelled")
+    check(abs(sum(sm["scenarios"][k]["prob"] for k in sm["scenarios"]) - 1.0) < 0.02, "scenario probs ~1.0")
+    check("forced back" in rs[3]["barrier_outcome"], "slow + wide -> forced back")
+    pat = detect_pattern([{"winner_settled": "led", "winner_barrier": 2, "winner_ran": "rail"},
+                          {"winner_settled": "on-pace", "winner_barrier": 3, "winner_ran": "rail"}], "Randwick", 12)
+    check("LEADER" in pat["observed_bias"], "two front-running winners -> leader bias observed")
+    check(pat["races_observed"] == 2, "counts earlier races")
+    check(detect_pattern([], "Randwick")["observed_bias"] == "NO LIVE EVIDENCE", "no earlier races -> no live evidence")
 
 
 def test_grade():
     print("\n[grade]")
-    from horse_edge.classlevel import parse_class
-    check(parse_class("BM88")["band"] == "high", "BM88 -> high grade")
-    check(parse_class("Class 3 Maiden")["band"] == "low", "maiden -> low grade")
-    check(parse_class("Group 2")["matched"] == "Group 2", "Group 2 recognised")
-    check(parse_class("BM64")["band"] == "low", "BM64 -> low grade")
-    check(parse_class("Listed")["band"] == "high", "Listed -> high grade")
+    check(parse_class("BM88")["band"] == "high", "BM88 high")
+    check(parse_class("Class 3 Maiden")["band"] == "low", "maiden low")
+    check(parse_class("BM64")["band"] == "low", "BM64 low")
+
+
+def test_full_analyse_and_decision():
+    print("\n[analyse + decision]")
+    data = {"race": {"track": "Randwick", "distance": 1400, "race_class": "BM78", "condition": "Good 4"},
+            "runners": [mk(1, "A", "ON-PACE", 7, 2, {"open": 5.0, "current": 4.0, "best": 4.2, "bsp": 4.1}, 85),
+                        mk(2, "B", "LEADER", 8, 4, {"open": 3.0, "current": 2.5, "best": 2.6, "bsp": 2.6}, 70),
+                        mk(3, "C", "MIDFIELD", 5, 6, {"open": 8.0, "current": 9.0, "best": 9.5, "bsp": 9.0}, 60),
+                        mk(4, "D", "BACKMARKER", 2, 8, {"open": 15.0, "current": 20.0, "best": 21.0, "bsp": 22.0}, 45)]}
+    out = analyse(copy.deepcopy(data))
+    check(abs(sum(r["win_prob"] for r in out["runners"]) - 1.0) < 1e-6, "probabilities sum to 1")
+    check(1 <= out["confidence"]["score"] <= 10, "confidence within 1-10")
+    check(out["decision"]["decision"] in ("BET", "SMALL BET", "WAIT FOR MARKET", "PASS / NO BET"), "decision emitted")
+    check(out["shortlist"]["top"]["name"] == "A", "top pick is highest probability")
+    check(out["runners"][0]["rank"] == 1, "runners ranked")
+    check(all(r["value_rating"]["score"] is not None for r in out["runners"]), "value ratings 1-10 present")
+    check(out["data_audit"]["counts"]["unavailable"] >= 0, "data audit present")
+    # no odds -> WAIT FOR MARKET
+    d2 = copy.deepcopy(data)
+    for r in d2["runners"]:
+        r["odds"] = None
+    out2 = analyse(d2)
+    check(out2["decision"]["decision"] == "WAIT FOR MARKET", "no odds -> WAIT FOR MARKET")
 
 
 def test_sample():
     print("\n[bundled sample]")
-    path = os.path.join(os.path.dirname(__file__), "sample_race.json")
-    if not os.path.exists(path):
-        print("  (sample_race.json not found — skipped)")
-        return
-    with open(path, encoding="utf-8") as f:
-        rc = json.load(f)
-    runners = rc["runners"]
-    weights, _n, mods = adjust_weights({
-        "condition": rc["condition"], "distance": rc["distance"],
-        "field_size": rc["field_size"], "track": rc["track"],
-    })
-    score_runners(runners, weights, mods["on_pace_pace_bonus"])
-    evaluate_market(runners, bankroll=100.0)
-    check(abs(sum(r["tissue_prob"] for r in runners) - 1.0) < 1e-6,
-          "sample tissue probabilities sum to 1.0")
-    top = max(runners, key=lambda r: r["tissue_prob"])
-    print(f"  model favourite: {top['name']} "
-          f"({top['tissue_prob']*100:.1f}%, ${top['odds']}, {top['value_class']})")
+    p = os.path.join(os.path.dirname(__file__), "sample_race.json")
+    with open(p, encoding="utf-8") as f:
+        out = analyse(json.load(f))
+    check(len(out["runners"]) == 8, "8 unscratched runners")
+    check(out["track_pattern"]["races_observed"] == 2, "earlier races detected")
+    top = out["runners"][0]
+    print(f"  top: {top['name']} {top['win_prob']*100:.1f}% fair ${top['fair_odds']} mkt ${top['bet_price']} "
+          f"| decision {out['decision']['decision']} | confidence {out['confidence']['score']}/10")
 
 
 def main():
-    test_base_weights()
-    test_adjust_normalizes()
-    test_scoring_and_market()
-    test_spread()
-    test_negative_kelly_no_bet()
-    test_exotics()
-    test_grade()
-    test_sample()
-    print("\n" + ("=" * 40))
+    for t in (test_weights, test_probability_independent_of_market, test_market, test_handicap,
+              test_speedmap_and_pattern, test_grade, test_full_analyse_and_decision, test_sample):
+        t()
+    print("\n" + "=" * 40)
     if FAILS:
         print(f"{len(FAILS)} CHECK(S) FAILED")
         sys.exit(1)

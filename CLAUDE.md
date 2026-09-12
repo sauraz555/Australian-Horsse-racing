@@ -1,6 +1,9 @@
 # HorseEdgeEngine
 
-Read **[AGENTS.md](AGENTS.md)** — it defines your persona, the 5-step workflow,
-and the CLI. Follow it for any horse-racing form-guide analysis in this repo. The
-required output format lives in [SYSTEM_PROMPT.md](SYSTEM_PROMPT.md); the
-sub-scoring heuristics in [skills.md](skills.md).
+Read **[AGENTS.md](AGENTS.md)** first and follow it exactly — persona, one-shot
+workflow, the single `analyze` command and the report format. `SYSTEM_PROMPT.md`
+holds the analysis method and output format; `skills.md` the 13-factor scoring.
+
+The user's only action is pasting a form guide. Research everything else with
+your own web tools; run `python "<repo>/hre.py" analyze "<repo>/race.json"` with
+absolute paths; never invent data.

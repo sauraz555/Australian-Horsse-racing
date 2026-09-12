@@ -1,8 +1,13 @@
 __pycache__/
 *.pyc
 .env
-# generated analysis artifacts
-*_race.json
-*_scored.json
-sample_scored.json
+# per-race working files the agent creates
+race.json
+race*.json
 !sample_race.json
+analysis.json
+analysis*.json
+sample_analysis.json
+scored.json
+*_scored.json
+race.txt

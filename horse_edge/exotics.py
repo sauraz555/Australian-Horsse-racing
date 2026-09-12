@@ -44,7 +44,8 @@ def _sample_top_k(strengths, k, rng):
 def simulate_places(runners, n=DEFAULT_SIMS, seed=DEFAULT_SEED, k=4):
     rng = random.Random(seed)
     m = len(runners)
-    strengths = [(i, max(float(r.get("tissue_prob") or 0.0), 0.0)) for i, r in enumerate(runners)]
+    strengths = [(i, max(float(r.get("win_prob") or r.get("tissue_prob") or 0.0), 0.0))
+                 for i, r in enumerate(runners)]
     win = [0] * m
     top2 = [0] * m
     top3 = [0] * m

@@ -1,81 +1,62 @@
-# HorseEdgeEngine
+# HorseEdgeEngine v2
 
-Agent-native toolkit for value-betting analysis of Australian horse races. Paste a
-form guide (text, PDF, or Excel); an LLM agent researches gaps and applies racing
-judgment while deterministic Python does all the betting math and produces a
-structured, value-based report.
+Agent-native research & value model for Australian horse racing (Racing.com /
+TAB / Sportsbet / Betfair). **You paste a form guide; the agent does the rest** —
+researches every runner with its own web tools, fills one `race.json`, runs one
+command for the numerical model, and writes the full report.
 
-Sibling of the Greyhound Edge Engine, but **model-agnostic**: no API key, no
-hardcoded LLM SDK. Whatever agent runs it (Claude Opus, Gemini Pro, Cursor, …) is
-the brain; the CLI is the calculator.
+No API key. No hardcoded LLM. Works under **Gemini CLI**, **Google Antigravity**,
+**Claude Code**, Cursor, or any agent that can run a shell command.
 
-## Setup
+## Use it
 
-The math core needs **nothing** beyond Python 3.9+. Install extras only for the
-input formats you'll use:
-
-```bash
-pip install -r requirements.txt      # pdfplumber (PDF) + openpyxl (Excel)
-# text/CSV pastes use the standard library only.
-```
-
-## Quick check (no key, no extras)
-
-```bash
-python smoke_test.py                  # verifies the deterministic math
-python -m horse_edge.cli demo         # scores the bundled sample end-to-end
-```
-
-## How an agent uses it (5 steps)
-
-1. **Ingest** — `python -m horse_edge.cli ingest <file> -o race.json`
-   Parses text/PDF/Excel/CSV → `race.json` scaffold + a `data_gaps` report.
-2. **Research** — the agent fills decision-critical gaps (odds, condition,
-   scratchings, gear, wet form, sectionals) with its own web tools.
-3. **Judge** — the agent sets each runner's `factor_scores` (0–100) and
-   `running_style`.
-4. **Score** — `python -m horse_edge.cli score race.json -o scored.json`
-   Deterministic weights, pace map, sectionals, tissue, de-vig, EV, Quarter-Kelly.
-5. **Report** — the agent writes the final markdown in the required output format.
-
-Full contract: **[AGENTS.md](AGENTS.md)**. Heuristics: **[skills.md](skills.md)**.
-Methodology + output format (verbatim): **[SYSTEM_PROMPT.md](SYSTEM_PROMPT.md)**.
-
-**Works with any agent CLI.** `AGENTS.md` is the cross-tool standard (Google
-Antigravity, Cursor, Windsurf, Codex, …); `GEMINI.md` covers Gemini CLI and
-Antigravity; `CLAUDE.md` covers Claude Code. All three point at `AGENTS.md`, so
-opening your agent inside this folder is enough — it auto-loads the contract. Any
-agent can also just run `python -m horse_edge.cli guide`.
-
-## CLI
+Open your agent inside this folder (it auto-loads `AGENTS.md` / `GEMINI.md` /
+`CLAUDE.md`) and paste a form guide. That's it.
 
 ```
-python -m horse_edge.cli ingest <file> [-o race.json]
-python -m horse_edge.cli template [-o race.json]
-python -m horse_edge.cli score  <race.json> [-o scored.json] [--bankroll 100] [--spread 7.0]
-python -m horse_edge.cli demo
+python hre.py guide      # the agent workflow
+python hre.py demo       # analyse the bundled sample, no deps
+python smoke_test.py     # verify the numerical model
 ```
 
-`--spread` sets tissue sharpness: `1.0` reproduces the literal `rating ÷ Σrating`
-spec (compresses fields, avoid); default `7.0` gives realistic favourite
-probabilities and stays independent of the market.
+## What the model computes (`python hre.py analyze race.json`)
 
-## Layout
+- **13-factor score /100** with race-type re-weighting (sprint / staying / wet /
+  tight track / field size / maiden)
+- **Independent win probability** (market factor excluded) → **fair odds** →
+  **minimum acceptable odds**
+- **Market layer:** opening → current → best fixed → **BSP**; overround & de-vig;
+  **SP movement** (steam / support / drift) by implied-probability shift; Betfair
+  divergence; edge; EV; Quarter-Kelly stake (5 % cap)
+- **Apprentice claims & benchmark ratings:** effective weight, weight swings,
+  rating vs benchmark, class moves
+- **Map-based speed profiling:** early-speed rating → predicted first-600 m order,
+  Pace Pressure Index, tempo, barrier outcomes, 3 scenarios with probabilities
+- **Track-pattern detection** from earlier races on today's card, kept separate
+  from historical bias
+- **Confidence 1–10** and **Value 1–10**, **BET / SMALL BET / WAIT / PASS**
+- Shortlist (top, value, rough, vulnerable favourite, avoid), automatic trap and
+  flag detection, exotics (Plackett-Luce), mandatory data-quality audit
+
+## Files
 
 ```
+hre.py                 single entry point (absolute-path safe for agent sandboxes)
 horse_edge/
-  models.py      ingest.py     weights.py    pace.py
-  sectional.py   scoring.py    market.py     cli.py
-  data/          track_bias.json  sire_wet.json  sectional_benchmarks.json
-AGENTS.md  skills.md  SYSTEM_PROMPT.md  CLAUDE.md  GEMINI.md
-sample_race.txt  sample_race.json  sample_scored.json  smoke_test.py
+  model.py             13-factor model, probability, confidence, value, decision
+  market.py            implied/overround/de-vig, SP moves, BSP, EV, Kelly
+  speedmap.py          early speed → running order, tempo, scenarios
+  pattern.py           today's track pattern from earlier races
+  handicap.py          apprentice claims, weight swings, benchmark
+  weights.py  classlevel.py  sectional.py  exotics.py  tracks.py  extract.py  cli.py
+  data/                track_bias.json  sire_wet.json  sectional_benchmarks.json
+AGENTS.md              the agent contract (Antigravity, Cursor, Codex …)
+GEMINI.md  CLAUDE.md   tool-specific pointers (Gemini CLI / Claude Code)
+SYSTEM_PROMPT.md       the master Australian research prompt + output format
+skills.md              how to score the 13 factors
+sample_race.json       worked example  ·  smoke_test.py
 ```
 
-## Guardrails (never overridden)
+Optional: `pip install pdfplumber openpyxl` to `extract` PDF / Excel form guides.
 
-- No negative-EV bets. No overlay → skip the race.
-- Quarter-Kelly, 5% single-bet cap.
-- Tissue is built independently of the market, then compared.
-- Missing data is surfaced and reweighted, never invented.
-
-Analysis is informational, for a legal-age audience, and not financial advice.
+Informational only; not financial advice; 18+.

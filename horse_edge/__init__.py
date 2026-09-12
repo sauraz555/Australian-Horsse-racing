@@ -1,6 +1,5 @@
-"""HorseEdgeEngine — agent-native Australian horse-racing analysis toolkit.
+"""HorseEdgeEngine v2 — agent-native Australian horse-racing research & value model.
 
-Deterministic Python does the betting math; the calling agent supplies judgment
-and writes the report. See AGENTS.md for the workflow.
+The agent researches and judges; Python runs the numerical model. See AGENTS.md.
 """
-__version__ = "0.1.0"
+__version__ = "2.0.0"
