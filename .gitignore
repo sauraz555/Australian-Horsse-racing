@@ -11,3 +11,10 @@ sample_analysis.json
 scored.json
 *_scored.json
 race.txt
+# pasted form guides and per-race artifacts (never commit — per-race, disposable)
+*_form.txt
+input_*.txt
+raw_form.txt
+*_race.json
+!sample_race.json
+build_race.py
